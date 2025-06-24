@@ -21,7 +21,7 @@ export class Game extends Scene
         this.textObjects = [];
         this.choiceButtons = [];
         this.textY = 180;
-        this.showNextContent('pepe_mosca');
+        this.showNextContent();
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
@@ -57,20 +57,22 @@ export class Game extends Scene
       }
     }
 
-    showNextContent(knotName)
+    showNextContent()
     {
         this.clearChoices();
         this.textY = 180;
-        this.setBackground(knotName);
         while (this.story.canContinue) {
           const line = this.story.Continue();
           this.addLine(line);
         }
+        const fullPath = this.story.state.currentPathString;
+        const currentKnot = this.story.currentPathString;
+        console.log('currentKnot', currentKnot, fullPath);
+        this.setBackground(currentKnot);
         this.story.currentChoices.forEach((choice, idx) => {
           this.addChoice(choice.text, () => {
             this.story.ChooseChoiceIndex(idx);
-            this.showNextContent(this.story.currentPathString);
-            console.log('choice', choice.targetPath, this.story.currentPathString);
+            this.showNextContent();
           });
         });
       }
