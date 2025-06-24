@@ -21,13 +21,13 @@ This is a virtual novel proof-of-concept written with [inkjs](https://www.inkles
 | `npm install` | Install project dependencies |
 | `npm run dev` | Launch a development web server |
 
-## Writing Code
+## Play Game
 
-After cloning the repo, you will need a server to serve the resources of your game. This template provides your own server with hot-reloading. To start it, simply run `npm run dev`.
+After the installation process, you will need a server to serve the resources of your game. This project provides your own web server with hot-reloading. To start it, simply run `npm run dev`.
 
 The local development server runs on `http://localhost:3000` by default.
 
-## Story files
+## Story Files
 
 Edit main story file `assets/story.ink` with Inky app ([download here](https://www.inklestudios.com/ink/)). Finally export to JSON file an save to `assets/story.json`.
 
