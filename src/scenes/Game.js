@@ -1,16 +1,6 @@
 import { Scene } from 'phaser';
 import { Story } from 'inkjs';
 
-const inkStoryContent = {
-    inkVersion: 19,
-    root: [
-      ["^You wake up in a dark forest.\n", "ev", "str", "intro", "out", "ev", "str", "look", "out", "ev", "str", "sleep", "out", "end"],
-      ["done", [["*", "Look around", "look", null], ["*", "Go back to sleep", "sleep", null]]],
-      ["done"]
-    ],
-    listDefs: {}
-  };
-
 export class Game extends Scene
 {
     constructor ()
@@ -20,27 +10,30 @@ export class Game extends Scene
 
     create ()
     {
-        this.cameras.main.setBackgroundColor(0x00ff00);
-
+        this.add.text(512, 60, 'VNN', {
+            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
+            stroke: '#000000', 
+            strokeThickness: 2,
+            align: 'center'
+        }).setOrigin(0.5);
+        const inkStoryContent = this.cache.json.get('inkStory');
         this.story = new Story(inkStoryContent);
         this.textObjects = [];
         this.choiceButtons = [];
-        this.textY = 20;
+        this.textY = 180;
         this.showNextContent();
-
-        this.input.once('pointerdown', () => {
-
+        /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
-
-        });
+        });*/
     }
     
     showNextContent() 
     {
         this.clearChoices();
-        this.textY = 20;
+        this.textY = 180;
         while (this.story.canContinue) {
           const line = this.story.Continue();
+          console.log('line', line);
           this.addLine(line);
         }
         this.story.currentChoices.forEach((choice, idx) => {
