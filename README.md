@@ -1,6 +1,6 @@
 # Virtual Novel by Nico v0.1
 
-This is a proof-of-concept virtual novel written with [inkjs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap).
+This is a proof-of-concept virtual novel written with [inkjs](https://www.inklestudios.com/ink/).
 
 
 ## Requirements
@@ -19,6 +19,12 @@ This is a proof-of-concept virtual novel written with [inkjs](https://developer.
 After cloning the repo, you will need a server to serve the resources of your game. This template provides your own server with hot-reloading. To start it, simply run `npm run dev`.
 
 The local development server runs on `http://localhost:3000` by default.
+
+## Story files
+
+Edit main story file `assets/story.ink` with Inky app ([download here](https://www.inklestudios.com/ink/)). Finally export to JSON file an save to `assets/story.json`.
+
+Keep file names. Reload browser to refresh the new story created.
 
 ## Project Structure
 
