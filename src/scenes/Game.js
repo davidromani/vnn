@@ -21,7 +21,7 @@ export class Game extends Scene
         this.textObjects = [];
         this.choiceButtons = [];
         this.textY = 180;
-        this.showNextContent();
+        this.showNextContent('pepe_mosca');
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
@@ -29,35 +29,19 @@ export class Game extends Scene
 
     setBackground(knotName)
     {
+      const fullPath = this.story.state.currentPathString;
+      const currentKnot = this.story.currentPathString;
       // Remove the old background (if any) first
       if (this.currentBackground) {
         this.currentBackground.destroy();
       }
       const centerX = this.cameras.main.width / 2;
       const centerY = this.cameras.main.height / 2;
-      // Set new background based on the knot name
-      switch (knotName) {
-        case 'pepe_mosca':
-          this.currentBackground = this.add.image(centerX, centerY, 'knot_pepe_mosca');
-          break;
-        case 'container':
-          this.currentBackground = this.add.image(centerX, centerY, 'knot_pepe_mosca');
-          break;
-        case 'pizzeria':
-          this.currentBackground = this.add.image(centerX, centerY, 'knot_pizzeria');
-          break;
-        case 'pijo':
-          this.currentBackground = this.add.image(centerX, centerY, 'knot_pijo');
-          break;
-        case 'walk_her_home':
-          this.currentBackground = this.add.image(centerX, centerY, 'knot_walk_her_home');
-          break;
-        default:
-          this.currentBackground = this.add.image(centerX, centerY, 'knot_pizzeria');
-      }
+      const image = 'knot_' + knotName;
+      this.currentBackground = this.add.image(centerX, centerY, image);
     }
 
-    showNextContent()
+    showNextContent(knotName)
     {
         this.clearChoices();
         this.textY = 180;
@@ -65,14 +49,13 @@ export class Game extends Scene
           const line = this.story.Continue();
           this.addLine(line);
         }
-        const fullPath = this.story.state.currentPathString;
-        const currentKnot = this.story.currentPathString;
-        console.log('currentKnot', currentKnot, fullPath);
-        this.setBackground(currentKnot);
+        console.log('showNextContent', knotName);
+        this.setBackground(knotName);
         this.story.currentChoices.forEach((choice, idx) => {
+          console.log('choice', choice.targetPath, choice.targetPath.lastComponent);
           this.addChoice(choice.text, () => {
             this.story.ChooseChoiceIndex(idx);
-            this.showNextContent();
+            this.showNextContent(choice.targetPath.head.name);
           });
         });
       }
