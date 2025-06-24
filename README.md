@@ -7,6 +7,13 @@ This is a virtual novel proof-of-concept written with [inkjs](https://www.inkles
 
 [Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm` (if you want to use the development server).
 
+## Installation
+
+1. Download source code ZIP file from [here](https://github.com/davidromani/vnn/archive/refs/heads/main.zip). 
+2. Unzip it.
+3. Open your terminal and change to your unzipped folder.
+4. Execute following available commands.
+
 ## Available Commands
 
 | Command | Description |
