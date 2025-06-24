@@ -33,25 +33,27 @@ export class Game extends Scene
       if (this.currentBackground) {
         this.currentBackground.destroy();
       }
+      const centerX = this.cameras.main.width / 2;
+      const centerY = this.cameras.main.height / 2;
       // Set new background based on the knot name
       switch (knotName) {
         case 'pepe_mosca':
-          this.currentBackground = this.add.image(400, 300, 'knot_pepe_mosca');
+          this.currentBackground = this.add.image(centerX, centerY, 'knot_pepe_mosca');
           break;
         case 'container':
-          this.currentBackground = this.add.image(400, 300, 'knot_pepe_mosca');
+          this.currentBackground = this.add.image(centerX, centerY, 'knot_pepe_mosca');
           break;
         case 'pizzeria':
-          this.currentBackground = this.add.image(400, 300, 'knot_pizzeria');
+          this.currentBackground = this.add.image(centerX, centerY, 'knot_pizzeria');
           break;
         case 'pijo':
-          this.currentBackground = this.add.image(400, 300, 'knot_pijo');
+          this.currentBackground = this.add.image(centerX, centerY, 'knot_pijo');
           break;
         case 'walk_her_home':
-          this.currentBackground = this.add.image(400, 300, 'knot_walk_her_home');
+          this.currentBackground = this.add.image(centerX, centerY, 'knot_walk_her_home');
           break;
         default:
-          this.currentBackground = this.add.image(400, 300, 'knot_pepe_mosca');
+          this.currentBackground = this.add.image(centerX, centerY, 'knot_pizzeria');
       }
     }
 
