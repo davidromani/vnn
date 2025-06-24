@@ -10,14 +10,17 @@ export class Game extends Scene
 
     create ()
     {
-        this.cameras.main.setBackgroundColor(0x00ff00);
+        this.add.text(512, 60, 'VNN', {
+            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
+            stroke: '#000000', 
+            strokeThickness: 2,
+            align: 'center'
+        }).setOrigin(0.5);
         const inkStoryContent = this.cache.json.get('inkStory');
-        console.log(inkStoryContent);
         this.story = new Story(inkStoryContent);
-        console.log('hit', this.story.ContinueMaximally());
         this.textObjects = [];
         this.choiceButtons = [];
-        this.textY = 20;
+        this.textY = 180;
         this.showNextContent();
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
@@ -27,9 +30,10 @@ export class Game extends Scene
     showNextContent() 
     {
         this.clearChoices();
-        this.textY = 20;
+        this.textY = 180;
         while (this.story.canContinue) {
           const line = this.story.Continue();
+          console.log('line', line);
           this.addLine(line);
         }
         this.story.currentChoices.forEach((choice, idx) => {
