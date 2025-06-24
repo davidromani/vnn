@@ -1,4 +1,15 @@
 import { Scene } from 'phaser';
+import { Story } from 'inkjs';
+
+const inkStoryContent = {
+    inkVersion: 19,
+    root: [
+      ["^You wake up in a dark forest.\n", "ev", "str", "intro", "out", "ev", "str", "look", "out", "ev", "str", "sleep", "out", "end"],
+      ["done", [["*", "Look around", "look", null], ["*", "Go back to sleep", "sleep", null]]],
+      ["done"]
+    ],
+    listDefs: {}
+  };
 
 export class Game extends Scene
 {
@@ -11,13 +22,11 @@ export class Game extends Scene
     {
         this.cameras.main.setBackgroundColor(0x00ff00);
 
-        this.add.image(512, 384, 'background').setAlpha(0.5);
-
-        this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5);
+        this.story = new Story(inkStoryContent);
+        this.textObjects = [];
+        this.choiceButtons = [];
+        this.textY = 20;
+        this.showNextContent();
 
         this.input.once('pointerdown', () => {
 
@@ -25,4 +34,42 @@ export class Game extends Scene
 
         });
     }
+    
+    showNextContent() 
+    {
+        this.clearChoices();
+        this.textY = 20;
+        while (this.story.canContinue) {
+          const line = this.story.Continue();
+          this.addLine(line);
+        }
+        this.story.currentChoices.forEach((choice, idx) => {
+          this.addChoice(choice.text, () => {
+            this.story.ChooseChoiceIndex(idx);
+            this.showNextContent();
+          });
+        });
+      }
+
+      addLine(line) 
+      {
+        const txt = this.add.text(20, this.textY, line, { fontSize:'20px', fill:'#fff', wordWrap:{ width:760 } });
+        this.textObjects.push(txt);
+        this.textY += txt.height + 10;
+      }
+
+      addChoice(text, cb) 
+      {
+        const btn = this.add.text(40, this.textY, `> ${text}`, { fontSize:'18px', fill:'#0f8' })
+          .setInteractive().on('pointerdown', cb);
+        this.choiceButtons.push(btn);
+        this.textY += btn.height + 10;
+      }
+
+      clearChoices() 
+      {
+        [...this.textObjects, ...this.choiceButtons].forEach(o => o.destroy());
+        this.textObjects = [];
+        this.choiceButtons = [];
+      }
 }

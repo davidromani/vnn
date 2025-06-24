@@ -23,6 +23,7 @@
     "webpack-dev-server": "^5.0.2"
   },
   "dependencies": {
+    "inkjs": "^2.3.2",
     "phaser": "^3.90.0"
   }
 }
