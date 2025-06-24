@@ -15,7 +15,7 @@
       }
   ],
   "license": "MIT",
-  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+  "licenseUrl": "https://opensource.org/license/mit",
   "homepage": "https://github.com/davidromani/vnn/blob/main/README.md",
   "scripts": {
     "dev": "alive-server"
