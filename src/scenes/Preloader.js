@@ -34,6 +34,7 @@ export class Preloader extends Scene
 
         //this.load.image('logo', 'logo.png');
         this.load.image('knot_bj', 'knots/bj.jpeg');
+        this.load.image('knot_container', 'knots/container.jpeg');
         this.load.image('knot_final', 'knots/final.jpeg');
         this.load.image('knot_hot_cofee', 'knots/hot_cofee.jpeg');
         this.load.image('knot_pepe_mosca', 'knots/pepe_mosca.jpeg');
