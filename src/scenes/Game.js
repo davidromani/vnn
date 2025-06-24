@@ -69,7 +69,8 @@ export class Game extends Scene
         this.story.currentChoices.forEach((choice, idx) => {
           this.addChoice(choice.text, () => {
             this.story.ChooseChoiceIndex(idx);
-            this.showNextContent(choice.targetPath[0]);
+            this.showNextContent(this.story.currentPathString);
+            console.log('choice', choice.targetPath, this.story.currentPathString);
           });
         });
       }
