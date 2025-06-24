@@ -1,0 +1,58 @@
+{
+    "inkVersion": 19,
+    "root": [
+        [
+            "^You wake up in a dark forest.\n",
+            "ev",
+            "out",
+            "du"
+        ],
+        [
+            "ev",
+            {
+                "#n": "g-0"
+            },
+            "str",
+            "intro",
+            "out",
+            "end"
+        ],
+        [
+            "done",
+            [
+                [
+                    "*",
+                    "Look around",
+                    "ev",
+                    {
+                        "VAR?": "look"
+                    },
+                    "out",
+                    "du",
+                    "ev",
+                    "str",
+                    "You see trees and fog.",
+                    "out",
+                    "end"
+                ],
+                [
+                    "*",
+                    "Go back to sleep",
+                    "ev",
+                    {
+                        "VAR?": "sleep"
+                    },
+                    "out",
+                    "du",
+                    "ev",
+                    "str",
+                    "You fall back asleep. The end.",
+                    "out",
+                    "end"
+                ]
+            ]
+        ],
+        ["done"]
+    ],
+    "listDefs": {}
+}
