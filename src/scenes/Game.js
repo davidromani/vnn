@@ -21,7 +21,7 @@ export class Game extends Scene
         this.textObjects = [];
         this.choiceButtons = [];
         this.textY = 180;
-        this.showNextContent();
+        this.showNextContent('pepe_mosca');
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
@@ -33,30 +33,33 @@ export class Game extends Scene
       if (this.currentBackground) {
         this.currentBackground.destroy();
       }
-
       // Set new background based on the knot name
       switch (knotName) {
-        case 'intro':
-          this.currentBackground = this.add.image(400, 300, 'knot_intro');
-          break;
         case 'pepe_mosca':
-          this.currentBackground = this.add.image(400, 300, 'knot_intro');
+          this.currentBackground = this.add.image(400, 300, 'knot_pepe_mosca');
           break;
         case 'container':
-          this.currentBackground = this.add.image(400, 300, 'knot_intro');
+          this.currentBackground = this.add.image(400, 300, 'knot_pepe_mosca');
           break;
         case 'pizzeria':
-          this.currentBackground = this.add.image(400, 300, 'knot_intro');
+          this.currentBackground = this.add.image(400, 300, 'knot_pizzeria');
+          break;
+        case 'pijo':
+          this.currentBackground = this.add.image(400, 300, 'knot_pijo');
+          break;
+        case 'walk_her_home':
+          this.currentBackground = this.add.image(400, 300, 'knot_walk_her_home');
           break;
         default:
-          this.currentBackground = this.add.image(400, 300, 'knot_intro');
+          this.currentBackground = this.add.image(400, 300, 'knot_pepe_mosca');
       }
     }
 
-    showNextContent()
+    showNextContent(knotName)
     {
         this.clearChoices();
         this.textY = 180;
+        this.setBackground(knotName);
         while (this.story.canContinue) {
           const line = this.story.Continue();
           this.addLine(line);
@@ -64,7 +67,7 @@ export class Game extends Scene
         this.story.currentChoices.forEach((choice, idx) => {
           this.addChoice(choice.text, () => {
             this.story.ChooseChoiceIndex(idx);
-            this.showNextContent();
+            this.showNextContent(choice.targetPath[0]);
           });
         });
       }
