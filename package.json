@@ -6,7 +6,14 @@
     "type": "git",
     "url": "git+https://github.com/phaserjs/template-import-map.git"
   },
-  "author": "Nico Sánchez <support@phaser.io> (https://phaser.io/)",
+  "author": "Nico Sánchez <nsanchezgisbert@gmail.com>",
+  "contributors": [
+      {
+          "name": "David Romaní",
+          "email": "romanidavid@gmail.com",
+          "url": "https://github.com/davidromani"
+      }
+  ],
   "license": "MIT",
   "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
   "homepage": "https://github.com/davidromani/vnn/blob/main/README.md",
