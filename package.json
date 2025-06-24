@@ -1,12 +1,12 @@
 {
-  "name": "template-import-map",
-  "version": "1.2.0",
-  "description": "This is a Phaser 3 project template that uses [importmap](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap).",
+  "name": "virtual-novel-nico",
+  "version": "0.1.0",
+  "description": "This is a virtual novel proof-of-concept written with [inkjs](https://www.inklestudios.com/ink/).",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/phaserjs/template-import-map.git"
   },
-  "author": "Nico Sánchez Studio <support@phaser.io> (https://phaser.io/)",
+  "author": "Nico Sánchez <support@phaser.io> (https://phaser.io/)",
   "license": "MIT",
   "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
   "homepage": "https://github.com/davidromani/vnn/blob/main/README.md",
