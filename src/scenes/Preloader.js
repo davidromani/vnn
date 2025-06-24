@@ -33,7 +33,8 @@ export class Preloader extends Scene
         this.load.setPath('assets');
 
         //this.load.image('logo', 'logo.png');
-        this.load.json('inkStory', 'story.json')
+        this.load.image('knot_intro', 'knots/intro.jpeg');
+        this.load.json('inkStory', 'story.json');
     }
 
     create ()
