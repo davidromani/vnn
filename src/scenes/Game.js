@@ -33,7 +33,6 @@ export class Game extends Scene
         this.textY = 180;
         while (this.story.canContinue) {
           const line = this.story.Continue();
-          console.log('line', line);
           this.addLine(line);
         }
         this.story.currentChoices.forEach((choice, idx) => {

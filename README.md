@@ -11,7 +11,7 @@ This is a virtual novel proof-of-concept written with [inkjs](https://www.inkles
 
 1. Download source code ZIP file from [here](https://github.com/davidromani/vnn/archive/refs/heads/main.zip). 
 2. Unzip it.
-3. Open your terminal and change to your unzipped folder.
+3. Open your terminal and go to your unzipped folder.
 4. Execute following available commands.
 
 ## Available Commands
