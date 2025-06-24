@@ -1,6 +1,6 @@
 # Virtual Novel by Nico v0.1
 
-This is a proof-of-concept virtual novel written with [inkjs](https://www.inklestudios.com/ink/).
+This is a virtual novel proof-of-concept written with [inkjs](https://www.inklestudios.com/ink/).
 
 
 ## Requirements
