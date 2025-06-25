@@ -24,7 +24,8 @@ export class Game extends Scene
         this.choiceButtons = [];
         this.textY = this.cameras.main.height - this.centerY;
         console.log(inkStoryContent);
-        //this.showNextContent('pepe_mosca');
+        this.setBackground('pepe_mosca');
+        this.showNextContent('pepe_mosca');
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
@@ -63,6 +64,7 @@ export class Game extends Scene
 
     addLine(line)
     {
+        console.log('line', line);
       const txt = this.add.text(20, this.textY, line, { fontSize: '20px', fill: '#fff', wordWrap: { width: 760 } });
       this.textObjects.push(txt);
       this.textY += txt.height + 10;
