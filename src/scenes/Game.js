@@ -26,14 +26,11 @@ export class Game extends Scene {
         });*/
     }
 
-
-
-
-
     continueToNextChoice() {
         // check we haven't reached the end of the story
         if (!this.story.canContinue && this.story.currentChoices.length === 0) {
-            end();
+            console.log('END OF GAME');
+            this.end();
         }
         // write the story to the console until we find a choice
         this.clearChoices();
@@ -42,8 +39,10 @@ export class Game extends Scene {
             const line = this.story.Continue();
             this.addLine(line);
         }
-        // check if there are choices
-        if (myStory.currentChoices.length > 0) {
+        // check if there are NO choices
+        if (this.story.currentChoices.length === 0) {
+            console.log('No more available choices!');
+            this.end();
         }
         this.textY = this.textY + 35;
         this.story.currentChoices.forEach((choice, idx) => {
@@ -115,5 +114,9 @@ export class Game extends Scene {
         textObj.setPosition(padding, padding);
 
         return container;
+    }
+    
+    end() {
+        console.log('END OF FILE.');
     }
 }
