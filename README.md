@@ -25,7 +25,7 @@ This is a virtual novel proof-of-concept written with [inkjs](https://www.inkles
 
 After the installation process, you will need a server to serve the resources of your game. This project provides your own web server with hot-reloading. To start it, simply run `npm run dev`.
 
-The local development server runs on `http://localhost:3000` by default.
+The local development server runs on `http://localhost:5173` by default.
 
 ## Story Files
 
