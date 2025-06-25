@@ -18,6 +18,7 @@ export class Game extends Scene {
         const inkStoryContent = this.cache.json.get('inkStory');
         this.story = new Story(inkStoryContent);
         this.story.ObserveVariable('current_knot', function (varName, newValue) {
+            document.title = `${newValue} · NVV · v0.1`;
             this.setBackground(newValue);
         }.bind(this));
         this.textObjects = [];
