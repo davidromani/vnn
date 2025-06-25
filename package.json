@@ -18,7 +18,9 @@
   "licenseUrl": "https://opensource.org/license/mit",
   "homepage": "https://github.com/davidromani/vnn/blob/main/README.md",
   "scripts": {
-    "dev": "alive-server"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "virtual",
