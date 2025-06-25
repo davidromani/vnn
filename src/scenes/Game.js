@@ -17,72 +17,41 @@ export class Game extends Scene {
         }).setOrigin(0.5).setDepth(1);
         const inkStoryContent = this.cache.json.get('inkStory');
         this.story = new Story(inkStoryContent);
+        this.story.ObserveVariable('current_knot', function (varName, newValue) {
+            this.setBackground(newValue);
+        }.bind(this));
         this.textObjects = [];
         this.choiceButtons = [];
-        this.showNextContent('pepe_mosca');
+        this.continueToNextChoice();
         // TODO set end of game scene action
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
     }
 
-    setBackground(knotName) {
-        // console.log('setBackground knotName', knotName);
-        if (this.currentBackground) {
-            this.currentBackground.destroy();
+    continueToNextChoice() {
+        // check we haven't reached the end of the story
+        if (!this.story.canContinue && this.story.currentChoices.length === 0) {
+            console.log('END OF GAME');
+            this.end();
         }
-        const image = 'knot_' + knotName; // TODO check if knot image name exists, else draw a default one
-        this.currentBackground = this.add.image(this.centerX, this.centerY, image);
-        this.currentBackground.setDepth(0);
-    }
-
-    createTextButton(x, y, text, scene, cb) {
-        // console.log('createTextButton', x, y, text, scene)
-        // Create the text object
-        const textObj = scene.add.text(0, 0, `> ${text}`, {
-            fontSize: '18px',
-            fill: '#0f8'
-        })
-            .setDepth(1)
-            .setInteractive({ useHandCursor: true })
-            .on('pointerdown', cb)
-            ;
-        // Calculate background size based on text
-        const padding = 10;
-        const width = textObj.width + padding * 2;
-        const height = textObj.height + padding * 2;
-        // Create a graphics object for the rounded rectangle
-        const bg = scene.add.graphics();
-        bg.lineStyle(2, '#0f8', 1); // Outline: green, 2px
-        bg.fillStyle(0x000000, 1); // Background: black
-        bg.fillRoundedRect(0, 0, width, height, 8); // Rounded corners
-        bg.strokeRoundedRect(0, 0, width, height, 8);
-        // Create a container to group text + background
-        const container = scene.add.container(x, y, [bg, textObj]);
-        textObj.setPosition(padding, padding); // Offset text inside box
-
-        return container;
-    }
-
-    showNextContent() {
+        // write the story to the console until we find a choice
         this.clearChoices();
         this.textY = this.centerY / 2;
         while (this.story.canContinue) {
             const line = this.story.Continue();
             this.addLine(line);
         }
+        // check if there are NO choices
+        if (this.story.currentChoices.length === 0) {
+            console.log('No more available choices!');
+            this.end();
+        }
         this.textY = this.textY + 35;
         this.story.currentChoices.forEach((choice, idx) => {
-            if (idx === 0) {
-                const path = choice.sourcePath; // Example: "knotName.stitchName.0"
-                const parts = path.split('.');
-                if (parts.length > 0) {
-                    this.setBackground(parts[0]);
-                }
-            }
             this.addChoice(choice.text, () => {
                 this.story.ChooseChoiceIndex(idx);
-                this.showNextContent();
+                this.continueToNextChoice();
             });
         });
     }
@@ -108,5 +77,42 @@ export class Game extends Scene {
         [...this.textObjects, ...this.choiceButtons].forEach(o => o.destroy());
         this.textObjects = [];
         this.choiceButtons = [];
+    }
+    
+    setBackground(knotName) {
+        // console.log('setBackground knotName', knotName);
+        if (this.currentBackground) {
+            this.currentBackground.destroy();
+        }
+        const image = 'knot_' + knotName; // TODO check if knot image name exists, else draw a default one
+        this.currentBackground = this.add.image(this.centerX, this.centerY, image);
+        this.currentBackground.setDepth(0);
+    }
+    
+    createTextButton(x, y, text, scene, cb) {
+        // Create the text object
+        const textObj = scene.add.text(0, 0, `> ${text}`, {
+            fontSize: '18px',
+            fill: '#0f8'
+        })
+            .setDepth(1)
+            .setInteractive({useHandCursor: true})
+            .on('pointerdown', cb);
+        const padding = 10;
+        const width = textObj.width + padding * 2;
+        const height = textObj.height + padding * 2;
+        const bg = scene.add.graphics();
+        bg.lineStyle(2, 0x00ff88, 1)
+            .fillStyle(0x000000, 1)
+            .fillRoundedRect(0, 0, width, height, 8)
+            .strokeRoundedRect(0, 0, width, height, 8);
+        const container = scene.add.container(x, y, [bg, textObj]);
+        textObj.setPosition(padding, padding);
+
+        return container;
+    }
+    
+    end() {
+        console.log('END OF FILE.');
     }
 }
