@@ -19,17 +19,15 @@ export class Game extends Scene {
         this.story = new Story(inkStoryContent);
         this.textObjects = [];
         this.choiceButtons = [];
-        console.log(this.cameras.main.height, this.centerY, inkStoryContent);
         this.showNextContent('pepe_mosca');
+        // TODO set end of game scene action
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
     }
 
     setBackground(knotName) {
-        const fullPath = this.story.state.currentPathString;
-        const currentKnot = this.story.currentPathString;
-        // Remove the old background (if any) first
+        console.log('setBackground knotName', knotName);
         if (this.currentBackground) {
             this.currentBackground.destroy();
         }
@@ -38,27 +36,64 @@ export class Game extends Scene {
         this.currentBackground.setDepth(0);
     }
 
-    showNextContent(knotName) {
+    createTextButton(x, y, text, scene, cb) {
+        console.log('createTextButton', x, y, text, scene)
+        // Create the text object
+        const textObj = scene.add.text(0, 0, `> ${text}`, {
+            fontSize: '18px',
+            fill: '#0f8'
+        })
+            .setDepth(1)
+            .setInteractive({ useHandCursor: true })
+            .on('pointerdown', cb)
+            ;
+        // Calculate background size based on text
+        const padding = 10;
+        const width = textObj.width + padding * 2;
+        const height = textObj.height + padding * 2;
+        // Create a graphics object for the rounded rectangle
+        const bg = scene.add.graphics();
+        bg.lineStyle(2, '#0f8', 1); // Outline: green, 2px
+        bg.fillStyle(0x000000, 1); // Background: black
+        bg.fillRoundedRect(0, 0, width, height, 8); // Rounded corners
+        bg.strokeRoundedRect(0, 0, width, height, 8);
+        // Create a container to group text + background
+        const container = scene.add.container(x, y, [bg, textObj]);
+        textObj.setPosition(padding, padding); // Offset text inside box
+
+        return container;
+    }
+
+    getChoiceDestinationPath(story, choice) {
+        const clone = new Story(story._contentContainer);
+        clone.ChooseChoiceIndex(choice.index);
+        clone.Continue();
+
+        return clone.currentPathString;
+    }
+
+    showNextContent() {
         this.clearChoices();
         this.textY = this.centerY / 2;
         while (this.story.canContinue) {
             const line = this.story.Continue();
             this.addLine(line);
         }
-        console.log('showNextContent', knotName);
         this.textY = this.textY + 35;
         this.story.currentChoices.forEach((choice, idx) => {
-            console.log('choice', choice.targetPath, choice.targetPath.lastComponent);
+            const path = choice.sourcePath; // Example: "knotName.stitchName.0"
+            const parts = path.split('.');
+            if (parts.length > 0) {
+                this.setBackground(parts[0]);
+            }
             this.addChoice(choice.text, () => {
                 this.story.ChooseChoiceIndex(idx);
-                //this.showNextContent(choice.targetPath.head.name);
+                this.showNextContent();
             });
         });
-        this.setBackground(knotName);
     }
 
     addLine(line) {
-        // console.log('line', line);
         const txt = this.add.text(20, this.textY, line, {fontSize: '20px', fill: '#fff', wordWrap: {width: 760}});
         txt.setDepth(1);
         this.textObjects.push(txt);
@@ -66,11 +101,13 @@ export class Game extends Scene {
     }
 
     addChoice(text, cb) {
-        const btn = this.add.text(40, this.textY, `> ${text}`, {fontSize: '18px', fill: '#0f8'})
+        /*const btn = this.add.text(40, this.textY, `> ${text}`, {fontSize: '18px', fill: '#0f8'})
             .setInteractive().on('pointerdown', cb)
-            .setDepth(1);
+            .setDepth(1);*/
+        console.log('add Choice text, cb', text, cb);
+        const btn = this.createTextButton(40, this.textY, text, this, cb);
         this.choiceButtons.push(btn);
-        this.textY += btn.height + 10;
+        this.textY += 30;
     }
 
     clearChoices() {
