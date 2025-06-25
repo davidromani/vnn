@@ -9,7 +9,6 @@ export class Game extends Scene {
     create() {
         this.centerX = this.cameras.main.width / 2;
         this.centerY = this.cameras.main.height / 2;
-        this.newLineDeltaY = 5;
         this.add.text(this.centerX, this.centerY / 6, 'VNN', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000',
@@ -47,7 +46,7 @@ export class Game extends Scene {
             this.addLine(line);
         }
         console.log('showNextContent', knotName);
-        this.setBackground(knotName);
+        this.textY = this.textY + 35;
         this.story.currentChoices.forEach((choice, idx) => {
             console.log('choice', choice.targetPath, choice.targetPath.lastComponent);
             this.addChoice(choice.text, () => {
@@ -55,10 +54,11 @@ export class Game extends Scene {
                 //this.showNextContent(choice.targetPath.head.name);
             });
         });
+        this.setBackground(knotName);
     }
 
     addLine(line) {
-        console.log('line', line);
+        // console.log('line', line);
         const txt = this.add.text(20, this.textY, line, {fontSize: '20px', fill: '#fff', wordWrap: {width: 760}});
         txt.setDepth(1);
         this.textObjects.push(txt);
@@ -67,7 +67,8 @@ export class Game extends Scene {
 
     addChoice(text, cb) {
         const btn = this.add.text(40, this.textY, `> ${text}`, {fontSize: '18px', fill: '#0f8'})
-            .setInteractive().on('pointerdown', cb);
+            .setInteractive().on('pointerdown', cb)
+            .setDepth(1);
         this.choiceButtons.push(btn);
         this.textY += btn.height + 10;
     }
