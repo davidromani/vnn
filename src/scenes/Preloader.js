@@ -17,8 +17,7 @@ export class Preloader extends Scene {
     }
 
     preload() {
-        //  Load the assets for the game - Replace with your own assets
-        this.load.setPath('public');
+        // load the assets for the game - Replace with your own assets
         this.load.image('knot_bj', 'knots/bj.jpeg');
         this.load.image('knot_container', 'knots/container.jpeg');
         this.load.image('knot_final', 'knots/final.jpeg');
