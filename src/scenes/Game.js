@@ -27,7 +27,7 @@ export class Game extends Scene {
     }
 
     setBackground(knotName) {
-        console.log('setBackground knotName', knotName);
+        // console.log('setBackground knotName', knotName);
         if (this.currentBackground) {
             this.currentBackground.destroy();
         }
@@ -37,7 +37,7 @@ export class Game extends Scene {
     }
 
     createTextButton(x, y, text, scene, cb) {
-        console.log('createTextButton', x, y, text, scene)
+        // console.log('createTextButton', x, y, text, scene)
         // Create the text object
         const textObj = scene.add.text(0, 0, `> ${text}`, {
             fontSize: '18px',
@@ -64,14 +64,6 @@ export class Game extends Scene {
         return container;
     }
 
-    getChoiceDestinationPath(story, choice) {
-        const clone = new Story(story._contentContainer);
-        clone.ChooseChoiceIndex(choice.index);
-        clone.Continue();
-
-        return clone.currentPathString;
-    }
-
     showNextContent() {
         this.clearChoices();
         this.textY = this.centerY / 2;
@@ -81,10 +73,12 @@ export class Game extends Scene {
         }
         this.textY = this.textY + 35;
         this.story.currentChoices.forEach((choice, idx) => {
-            const path = choice.sourcePath; // Example: "knotName.stitchName.0"
-            const parts = path.split('.');
-            if (parts.length > 0) {
-                this.setBackground(parts[0]);
+            if (idx === 0) {
+                const path = choice.sourcePath; // Example: "knotName.stitchName.0"
+                const parts = path.split('.');
+                if (parts.length > 0) {
+                    this.setBackground(parts[0]);
+                }
             }
             this.addChoice(choice.text, () => {
                 this.story.ChooseChoiceIndex(idx);
@@ -104,10 +98,10 @@ export class Game extends Scene {
         /*const btn = this.add.text(40, this.textY, `> ${text}`, {fontSize: '18px', fill: '#0f8'})
             .setInteractive().on('pointerdown', cb)
             .setDepth(1);*/
-        console.log('add Choice text, cb', text, cb);
+        // console.log('add Choice text, cb, this.textY', text, this.textY);
         const btn = this.createTextButton(40, this.textY, text, this, cb);
         this.choiceButtons.push(btn);
-        this.textY += 30;
+        this.textY += 60;
     }
 
     clearChoices() {
