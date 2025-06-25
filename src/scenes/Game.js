@@ -44,19 +44,18 @@ export class Game extends Scene {
             fill: '#0f8'
         })
             .setDepth(1)
-            .setInteractive({ useHandCursor: true })
-            .on('pointerdown', cb)
-            ;
+            .setInteractive({useHandCursor: true})
+            .on('pointerdown', cb);
         // Calculate background size based on text
         const padding = 10;
         const width = textObj.width + padding * 2;
         const height = textObj.height + padding * 2;
         // Create a graphics object for the rounded rectangle
         const bg = scene.add.graphics();
-        bg.lineStyle(2, '#0f8', 1); // Outline: green, 2px
-        bg.fillStyle(0x000000, 1); // Background: black
-        bg.fillRoundedRect(0, 0, width, height, 8); // Rounded corners
-        bg.strokeRoundedRect(0, 0, width, height, 8);
+        bg.lineStyle(2, 0x00ff88, 1)
+            .fillStyle(0x000000, 1)
+            .fillRoundedRect(0, 0, width, height, 8)
+            .strokeRoundedRect(0, 0, width, height, 8);
         // Create a container to group text + background
         const container = scene.add.container(x, y, [bg, textObj]);
         textObj.setPosition(padding, padding); // Offset text inside box
