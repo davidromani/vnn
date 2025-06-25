@@ -23,7 +23,7 @@ export class Game extends Scene
         this.story = new Story(inkStoryContent);
         this.textObjects = [];
         this.choiceButtons = [];
-        this.textY = this.cameras.main.height - this.centerY;
+        //this.textY = this.centerY / 4;
         console.log(this.cameras.main.height, this.centerY, inkStoryContent);
         //this.setBackground('pepe_mosca');
         this.showNextContent('pepe_mosca');
@@ -48,7 +48,7 @@ export class Game extends Scene
     showNextContent(knotName)
     {
         this.clearChoices();
-        this.textY = this.cameras.main.height - this.centerY;
+        this.textY = this.centerY / 2;
         while (this.story.canContinue) {
           const line = this.story.Continue();
           this.addLine(line);
