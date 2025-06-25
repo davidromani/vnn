@@ -17,6 +17,9 @@ export class Game extends Scene {
         }).setOrigin(0.5).setDepth(1);
         const inkStoryContent = this.cache.json.get('inkStory');
         this.story = new Story(inkStoryContent);
+        this.story.ObserveVariable('current_knot', function (varName, newValue) {
+            this.setBackground(newValue);
+        }.bind(this));
         this.textObjects = [];
         this.choiceButtons = [];
         this.continueToNextChoice();
@@ -27,7 +30,6 @@ export class Game extends Scene {
     }
 
     continueToNextChoice() {
-        console.log('continueToNextChoice', this.story.variablesState['current_knot']);
         // check we haven't reached the end of the story
         if (!this.story.canContinue && this.story.currentChoices.length === 0) {
             console.log('END OF GAME');
@@ -47,13 +49,6 @@ export class Game extends Scene {
         }
         this.textY = this.textY + 35;
         this.story.currentChoices.forEach((choice, idx) => {
-            if (idx === 0) {
-                const path = choice.sourcePath; // Example: "knotName.stitchName.0"
-                const parts = path.split('.');
-                if (parts.length > 0) {
-                    this.setBackground(parts[0]);
-                }
-            }
             this.addChoice(choice.text, () => {
                 this.story.ChooseChoiceIndex(idx);
                 this.continueToNextChoice();
