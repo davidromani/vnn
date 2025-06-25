@@ -10,9 +10,9 @@ export class Game extends Scene
 
     create ()
     {
-        const centerX = this.cameras.main.width / 2;
-        const centerY = this.cameras.main.height / 2;
-        this.add.text(centerX, centerY, 'VNN', {
+        this.centerX = this.cameras.main.width / 2;
+        this.centerY = this.cameras.main.height / 2;
+        this.add.text(this.centerX, this.centerY, 'VNN', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000',
             strokeThickness: 2,
@@ -22,7 +22,7 @@ export class Game extends Scene
         this.story = new Story(inkStoryContent);
         this.textObjects = [];
         this.choiceButtons = [];
-        this.textY = this.cameras.main.height - centerY;
+        this.textY = this.cameras.main.height - this.centerY;
         console.log(inkStoryContent);
         //this.showNextContent('pepe_mosca');
         /*this.input.once('pointerdown', () => {
@@ -38,16 +38,14 @@ export class Game extends Scene
       if (this.currentBackground) {
         this.currentBackground.destroy();
       }
-      const centerX = this.cameras.main.width / 2;
-      const centerY = this.cameras.main.height / 2;
       const image = 'knot_' + knotName;
-      this.currentBackground = this.add.image(centerX, centerY, image);
+      this.currentBackground = this.add.image(this.centerX, this.centerY, image);
     }
 
     showNextContent(knotName)
     {
         this.clearChoices();
-        this.textY = 180;
+        this.textY = this.cameras.main.height - this.centerY;
         while (this.story.canContinue) {
           const line = this.story.Continue();
           this.addLine(line);
