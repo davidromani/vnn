@@ -27,6 +27,7 @@ export class Game extends Scene {
     }
 
     continueToNextChoice() {
+        console.log('continueToNextChoice', this.story.variablesState['current_knot']);
         // check we haven't reached the end of the story
         if (!this.story.canContinue && this.story.currentChoices.length === 0) {
             console.log('END OF GAME');
