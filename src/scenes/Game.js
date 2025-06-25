@@ -12,19 +12,20 @@ export class Game extends Scene
     {
         this.centerX = this.cameras.main.width / 2;
         this.centerY = this.cameras.main.height / 2;
-        this.add.text(this.centerX, this.centerY, 'VNN', {
+        this.newLineDeltaY = 5;
+        this.add.text(this.centerX, this.centerY / 6, 'VNN', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000',
             strokeThickness: 2,
             align: 'center'
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setDepth(1);
         const inkStoryContent = this.cache.json.get('inkStory');
         this.story = new Story(inkStoryContent);
         this.textObjects = [];
         this.choiceButtons = [];
         this.textY = this.cameras.main.height - this.centerY;
-        console.log(inkStoryContent);
-        this.setBackground('pepe_mosca');
+        console.log(this.cameras.main.height, this.centerY, inkStoryContent);
+        //this.setBackground('pepe_mosca');
         this.showNextContent('pepe_mosca');
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
@@ -41,6 +42,7 @@ export class Game extends Scene
       }
       const image = 'knot_' + knotName;
       this.currentBackground = this.add.image(this.centerX, this.centerY, image);
+      this.currentBackground.setDepth(0);
     }
 
     showNextContent(knotName)
@@ -52,7 +54,7 @@ export class Game extends Scene
           this.addLine(line);
         }
         console.log('showNextContent', knotName);
-        //this.setBackground(knotName);
+        this.setBackground(knotName);
         this.story.currentChoices.forEach((choice, idx) => {
           console.log('choice', choice.targetPath, choice.targetPath.lastComponent);
           this.addChoice(choice.text, () => {
@@ -66,8 +68,9 @@ export class Game extends Scene
     {
         console.log('line', line);
       const txt = this.add.text(20, this.textY, line, { fontSize: '20px', fill: '#fff', wordWrap: { width: 760 } });
+        txt.setDepth(1);
       this.textObjects.push(txt);
-      this.textY += txt.height + 10;
+      this.textY += txt.height;
     }
 
     addChoice(text, cb)
