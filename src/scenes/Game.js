@@ -51,19 +51,19 @@ export class Game extends Scene
           this.addLine(line);
         }
         console.log('showNextContent', knotName);
-        this.setBackground(knotName);
+        //this.setBackground(knotName);
         this.story.currentChoices.forEach((choice, idx) => {
           console.log('choice', choice.targetPath, choice.targetPath.lastComponent);
           this.addChoice(choice.text, () => {
             this.story.ChooseChoiceIndex(idx);
-            this.showNextContent(choice.targetPath.head.name);
+            //this.showNextContent(choice.targetPath.head.name);
           });
         });
       }
 
     addLine(line)
     {
-      const txt = this.add.text(20, this.textY, line, { fontSize:'20px', fill:'#fff', wordWrap:{ width:760 } });
+      const txt = this.add.text(20, this.textY, line, { fontSize: '20px', fill: '#fff', wordWrap: { width: 760 } });
       this.textObjects.push(txt);
       this.textY += txt.height + 10;
     }
