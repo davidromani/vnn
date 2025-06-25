@@ -10,7 +10,9 @@ export class Game extends Scene
 
     create ()
     {
-        this.add.text(512, 60, 'VNN', {
+        const centerX = this.cameras.main.width / 2;
+        const centerY = this.cameras.main.height / 2;
+        this.add.text(centerX, centerY, 'VNN', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000',
             strokeThickness: 2,
@@ -20,8 +22,9 @@ export class Game extends Scene
         this.story = new Story(inkStoryContent);
         this.textObjects = [];
         this.choiceButtons = [];
-        this.textY = 180;
-        this.showNextContent('pepe_mosca');
+        this.textY = this.cameras.main.height - centerY;
+        console.log(inkStoryContent);
+        //this.showNextContent('pepe_mosca');
         /*this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
         });*/
